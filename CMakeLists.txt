@@ -7,16 +7,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Define the executable
 add_executable(testsql testsql.cpp)
 
-# Link SQLite3 dynamically
-target_link_libraries(testsql PRIVATE ${CMAKE_SOURCE_DIR}/sqlite3.dll)
+# Include directory (sqlite3.h is in "ext/")
+target_include_directories(testsql PRIVATE ${CMAKE_SOURCE_DIR}/ext)
 
-# Include directories (if sqlite3.h is in the same folder)
-target_include_directories(testsql PRIVATE ${CMAKE_SOURCE_DIR})
+# Link SQLite3 dynamically (sqlite3.dll is in "ext/")
+target_link_libraries(testsql PRIVATE ${CMAKE_SOURCE_DIR}/ext/sqlite3.dll)
 
 # Copy sqlite3.dll to the build directory after building
 add_custom_command(
     TARGET testsql POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_SOURCE_DIR}/sqlite3.dll
+        ${CMAKE_SOURCE_DIR}/ext/sqlite3.dll
         ${CMAKE_BINARY_DIR}/sqlite3.dll
 )

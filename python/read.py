@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("test_db")
+conn = sqlite3.connect("../build/test_db")
 cursor = conn.cursor()
 
 cursor.execute("SELECT * FROM users")
